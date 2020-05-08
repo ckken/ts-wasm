@@ -6,3 +6,7 @@
 + npx asinit .
 + yarn
 + yarn asbuild
+
+
+## 使用 
++ 加载 wasm [连接](https://developers.google.com/web/updates/2018/04/loading-wasm)

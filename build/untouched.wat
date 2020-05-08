@@ -1,8 +1,8 @@
 (module
  (type $i32_i32_=>_none (func (param i32 i32)))
  (type $i32_=>_none (func (param i32)))
- (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_=>_i32 (func (param i32) (result i32)))
+ (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $none_=>_none (func))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
@@ -27,6 +27,7 @@
  (export "__collect" (func $~lib/rt/pure/__collect))
  (export "__rtti_base" (global $~lib/rt/__rtti_base))
  (export "add" (func $assembly/index/add))
+ (export "isPrime" (func $assembly/index/isPrime))
  (func $~lib/rt/tlsf/removeBlock (; 1 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -1464,10 +1465,47 @@
   local.get $1
   i32.add
  )
- (func $~lib/rt/pure/__collect (; 15 ;)
+ (func $assembly/index/isPrime (; 15 ;) (param $0 i32) (result i32)
+  (local $1 i32)
+  (local $2 i32)
+  local.get $0
+  i32.const 2
+  i32.lt_u
+  if
+   i32.const 0
+   return
+  end
+  i32.const 2
+  local.set $1
+  loop $for-loop|0
+   local.get $1
+   local.get $0
+   i32.lt_u
+   local.set $2
+   local.get $2
+   if
+    local.get $0
+    local.get $1
+    i32.rem_u
+    i32.const 0
+    i32.eq
+    if
+     i32.const 0
+     return
+    end
+    local.get $1
+    i32.const 1
+    i32.add
+    local.set $1
+    br $for-loop|0
+   end
+  end
+  i32.const 1
+ )
+ (func $~lib/rt/pure/__collect (; 16 ;)
   return
  )
- (func $~lib/rt/tlsf/freeBlock (; 16 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/tlsf/freeBlock (; 17 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   local.get $1
   i32.load
@@ -1481,7 +1519,7 @@
   local.get $1
   call $~lib/rt/tlsf/insertBlock
  )
- (func $~lib/rt/pure/decrement (; 17 ;) (param $0 i32)
+ (func $~lib/rt/pure/decrement (; 18 ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -1556,7 +1594,7 @@
    i32.store offset=4
   end
  )
- (func $~lib/rt/pure/__visit (; 18 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/pure/__visit (; 19 ;) (param $0 i32) (param $1 i32)
   local.get $0
   global.get $~lib/heap/__heap_base
   i32.lt_u
@@ -1580,7 +1618,7 @@
   i32.sub
   call $~lib/rt/pure/decrement
  )
- (func $~lib/rt/__visit_members (; 19 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/__visit_members (; 20 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   block $switch$1$default
    block $switch$1$case$4
