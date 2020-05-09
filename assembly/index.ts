@@ -17,3 +17,8 @@ export function isPrime(x: u32): bool {
 
   return true;
 }
+
+
+export function fabonacci(n:number):number{
+  return n < 2 ? n : fabonacci(n - 1) +  fabonacci(n - 2);
+}

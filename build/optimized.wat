@@ -8,6 +8,7 @@
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
  (type $none_=>_i32 (func (result i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
+ (type $f64_=>_f64 (func (param f64) (result f64)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (memory $0 1)
  (data (i32.const 16) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00t\00l\00s\00f\00.\00t\00s")
@@ -25,6 +26,7 @@
  (export "__rtti_base" (global $~lib/rt/__rtti_base))
  (export "add" (func $assembly/index/add))
  (export "isPrime" (func $assembly/index/isPrime))
+ (export "fabonacci" (func $assembly/index/fabonacci))
  (func $~lib/rt/tlsf/removeBlock (; 1 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -1156,10 +1158,29 @@
   end
   i32.const 1
  )
- (func $~lib/rt/pure/__collect (; 16 ;)
+ (func $assembly/index/fabonacci (; 16 ;) (param $0 f64) (result f64)
+  local.get $0
+  f64.const 2
+  f64.lt
+  i32.eqz
+  if
+   local.get $0
+   f64.const 1
+   f64.sub
+   call $assembly/index/fabonacci
+   local.get $0
+   f64.const 2
+   f64.sub
+   call $assembly/index/fabonacci
+   f64.add
+   local.set $0
+  end
+  local.get $0
+ )
+ (func $~lib/rt/pure/__collect (; 17 ;)
   nop
  )
- (func $~lib/rt/pure/decrement (; 17 ;) (param $0 i32)
+ (func $~lib/rt/pure/decrement (; 18 ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -1231,7 +1252,7 @@
    i32.store offset=4
   end
  )
- (func $~lib/rt/__visit_members (; 18 ;) (param $0 i32)
+ (func $~lib/rt/__visit_members (; 19 ;) (param $0 i32)
   block $switch$1$default
    block $switch$1$case$4
     block $switch$1$case$2
