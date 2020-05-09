@@ -5,7 +5,8 @@
 + yarn add assemblyscript -D
 + npx asinit .
 + yarn
-+ yarn asbuild
++ yarn asbuild or yarn asbuild:watch
++ yarn start
 
 
 ## 使用 
